@@ -83,28 +83,27 @@
         <div class="screen">
             <h2>Borrow My Angel</h2>
 
-            <form>
-                <input type="text" id="username" placeholder="Username">
-                <input type="password" id="password" placeholder="Password">
+            <form method="POST" action="http://localhost:3000/login-user">
+                <input type="text" name="userName" id="username" placeholder="Username">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <div id="logIn">
+                    <button id="logInButton" type="submit">Log In</button>
+                </div>
             </form>
-
-            <div id="logIn">
-                <button id="logInButton" type="submit" onclick="">Log In</button>
-            </div>
 
             <div class="center">
                 <a href="forgotPassword.html">Forgot Password?</a>
 
                 <div class="talkImmediately">
                     <div>Need help immediately?</div>
-                    <button id="connectButton">Connect With Angel Now</button>
+                    <button id="connectButton" onclick="window.location.href='pageSix.html'">Connect With Angel Now</button>
                 </div>
 
             </div>
 
             <div class="bottomScreen">
                 <div>Don't have an Account?</div>
-                <button id="accountButton" type="submit" onclick="">Create An Account</button>
+                <button id="accountButton" onclick="window.location.href='pageFour.html'">Create An Account</button>
             </div>
         </div>
     </div>
