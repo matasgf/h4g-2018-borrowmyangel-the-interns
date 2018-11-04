@@ -63,10 +63,14 @@
                 <input type="text" name="lastname" id="lastname" placeholder="Last Name*" required>
                 <input type="text" name="maidenName" id="maiden" placeholder="Maiden Name*" required>
 
-                <input type="text" id="Address" placeholder="Street Address*" required>
-                <input type="text" id="city" placeholder="City*" required>
-                <input type="text" id="state" placeholder="State*" required>
-                <input type="text" id="zip" placeholder="Zip Code*" required>
+                <div name="address">
+                    <input type="text" id="Address" placeholder="Street Address*" required>
+                    <input type="text" id="city" placeholder="City*" required>
+                    <input type="text" id="state" placeholder="State*" required>
+                    <input type="text" id="zip" placeholder="Zip Code*" required>
+                </div>
+                
+
 
                 <input type="text" name="phone" id="phone" placeholder="Phone*" required>
                 <input type="text" name="email" id="email" placeholder="Email*" required>
@@ -82,6 +86,8 @@
                     </label>
                 </div>
             </form>
+
+
 
             <div class="bottomScreen">
                 <button id="createAccountButton" type="submit" onclick="">Create Account</button>
