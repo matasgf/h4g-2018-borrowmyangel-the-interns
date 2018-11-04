@@ -44,7 +44,7 @@
         }
         .bottomScreen {
             text-align: center;
-            margin-top: 105px;
+            margin-top: 40px;
         }
         #createAccountButton {
             width: 150px;
@@ -57,18 +57,18 @@
     <div class="phone">
         <div class="screen">
             <h2>Borrow My Angel</h2>
-            <form>
-                <input type="text" id="username" placeholder="Username*" required>
-                <input type="password" id="password" placeholder="Password*" required>
-                <input type="text" id="email" placeholder="Email*" required>
-                <input type="text" id="firstName" placeholder="First Name">
-                <input type="number" id="age" placeholder="Age">
-                <input type="text" id="gender" placeholder="Gender">
+            <form method="POST" action="http://localhost:3000/create-user">
+                <input type="text" name="userName" id="userName" placeholder="Username*" required>
+                <input type="password" name="password" id="password" placeholder="Password*" required>
+                <input type="text" name="email" id="email" placeholder="Email*" required>
+                <input type="text" name="firstName" id="firstName" placeholder="First Name">
+                <input type="number" name="age" id="age" placeholder="Age">
+                <input type="text" name="gender" id="gender" placeholder="Gender">
+                <input type="text" name="location" id="location" placeholder="State">
+                <div class="bottomScreen">
+                    <button id="createAccountButton" type="submit">Create Account</button>
+                </div>
             </form>
-
-            <div class="bottomScreen">
-                <button id="createAccountButton" type="submit" onclick="">Create Account</button>
-            </div>
 
         </div>
     </div>
