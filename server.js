@@ -32,27 +32,27 @@ app.get('/', function(req, res) {
 //Assume request contains userName, email, password key/value pairs
 //Optionally include firstName, age, gender, and location key/value pairs
 app.post('/create-user', function(req, res) {
-	let userID = req.body.userName;
+	let userName = req.body.userName;
 	let email = req.body.email;
 	let password = req.body.password;
 	let optionalFields = ['firstName', 'age', 'gender', 'location'];
 	usersRef
-		.doc(userID)
+		.doc(userName)
 		.get()
 		.then(doc => {
 			if (doc.exists) {
 				//Send 400 if username already in use
 				res.status(400).json({ error: 'Username already in use' });
 			} else {
-				//Set email and password for userID doc in users collection in Firebase
-				usersRef.doc(userID).set({
+				//Set email and password for userName doc in users collection in Firebase
+				usersRef.doc(userName).set({
 					email: email,
 					password: password
 				});
 				optionalFields.forEach(function(field) {
 					//I think abstract equality operator is actually useful here
 					if (req.body[field] != null) {
-						usersRef.doc(userID).update({ field: req.body[field] });
+						usersRef.doc(userName).update({ field: req.body[field] });
 					}
 				});
 			}
@@ -72,7 +72,7 @@ app.post('/become-angel/:id', function(req, res) {
 		let angelName = req.body.angelName;
 		let password = req.body.password;
 		let email = req.body.email;
-		usersRef
+		angelsRef
 			.doc(angelName)
 			.get()
 			.then(doc => {
@@ -80,8 +80,8 @@ app.post('/become-angel/:id', function(req, res) {
 					//Send 400 if username already in use
 					res.status(400).json({ error: 'Username already in use' });
 				} else {
-					//Set email and password for userID doc in users collection in Firebase
-					usersRef.doc(angelName).set({
+					//Set email and password for userName doc in users collection in Firebase
+					angelsRef.doc(angelName).set({
 						email: email,
 						password: password
 					});
@@ -89,16 +89,16 @@ app.post('/become-angel/:id', function(req, res) {
 			});
 		res.status(200).json({ angelName: angelName });
 	}
-	//If userName specified in path param
+	//If angelName specified in path param
 	else {
 		let angelName = req.params.id;
-		usersRef.doc(angelName).update;
+		angelsRef.doc(angelName).update;
 		//Iterate over whatever fields were provided in by request
 		Object.keys(req.body).forEach(function(name) {
 			//I think abstract equality operator is actually useful here
 			if (req.body[name] != null) {
 				//Potential bug: will updating with name in name field just overwrite it for each item in object, like ("name": req.body[name]) would do?
-				usersRef.doc(angelName).update({ name: req.body[name] });
+				angelsRef.doc(angelName).update({ name: req.body[name] });
 			}
 		});
 		res.status(200).json({ angelName: angelName });
@@ -108,31 +108,69 @@ app.post('/become-angel/:id', function(req, res) {
 //User login
 //Assume request contains userName and password key/value pairs
 app.post('/login-user', function(req, res) {
-	let userID = req.body.userName;
-	//Jason said no encryption needed here since we'll assume HTTPS connection
-	let password = req.body.password;
+	let userName = req.body.userName;
+	let userData;
+	if (userName == null) {
+		res.status(400).json({ error: 'No username specified' });
+	} else {
+		userData = usersRef
+			.doc(userName)
+			.get()
+			.then(doc => {
+				if (!doc.exists) {
+					//Send 400 if username doesn't exist
+					res.status(400).json({ error: 'Username not found in our system' });
+				}
+			});
+	}
+	//if passwords match, send the 200 OK
+	if (req.body.password === userData.password) {
+		res.status(200).json();
+	} else {
+		res.status(400).json({ error: 'Incorrect password' });
+	}
 });
 
 //Angel login
 //Assume request contains angelName and password key/value pairs
 app.post('/login-angel', function(req, res) {
-	let userID = req.body.userName;
-	//Jason said no encryption needed here since we'll assume HTTPS connection
-	let password = req.body.password;
+	let angelName = req.body.userName;
+	let angelData;
+	if (angelName == null) {
+		res.status(400).json({ error: 'No angelName specified' });
+	} else {
+		angelData = angelsRef
+			.doc(angelName)
+			.get()
+			.then(doc => {
+				if (!doc.exists) {
+					//Send 400 if username doesn't exist
+					res.status(400).json({ error: 'angelName not found in our system' });
+				}
+			});
+	}
+	//if passwords match, send the 200 OK
+	if (req.body.password === angelData.password) {
+		res.status(200).json();
+	} else {
+		res.status(400).json({ error: 'Incorrect password' });
+	}
 });
 
 //Set angel status
 //Assume request contains angelName and angelStatus key/value pairs
 app.post('/set-angel-status', function(req, res) {
-	let userID = req.body.userName;
-	//Jason said no encryption needed here since we'll assume HTTPS connection
-	let password = req.body.password;
+	let angelName = req.body.angelName;
+	let angelStatus = req.body.angelStatus;
+	angelsRef.doc(angelName).update({ status: angelStatus });
+	//redirect to angel's homepage as a pug template
+	res.redirect('/angelHome');
 });
 
 //start a call
 //Assume request contains userName and angelName key/value pairs
 app.post('/make-call', function(req, res) {
-	let userID = req.body.userName;
+	let userName = req.body.userName;
 	//Jason said no encryption needed here since we'll assume HTTPS connection
 	let password = req.body.password;
 });
@@ -140,15 +178,7 @@ app.post('/make-call', function(req, res) {
 //start message
 //Assume request contains userName and angelName key/value pairs
 app.post('/start-message', function(req, res) {
-	let userID = req.body.userName;
+	let userName = req.body.userName;
 	//Jason said no encryption needed here since we'll assume HTTPS connection
 	let password = req.body.password;
-});
-
-//this will replace doc if it exists, and create it if it doesn't. Returns a promise
-usersRef.set({
-	alanisawesome: {
-		date_of_birth: 'June 23, 1912',
-		full_name: 'Alan Turing'
-	}
 });
