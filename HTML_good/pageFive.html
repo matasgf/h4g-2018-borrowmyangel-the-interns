@@ -13,7 +13,6 @@
             transform: translateX(5%) translateY(10%);
             border-radius: 20px;
         }
-
         .screen {
             background-color: lightblue;
             height: 500px;
@@ -23,7 +22,6 @@
             max-height: 500px;
             overflow-y: scroll;
         }
-
         h2 {
             text-align: center;
             color: white;
@@ -31,11 +29,9 @@
             -webkit-text-stroke-width: 2px;
             -webkit-text-stroke-color: black;
         }
-
         form {
             text-align: center;
         }
-
         input {
             font-size: 13px;
             color: #555;
@@ -46,13 +42,11 @@
             position: relative;
             margin-top: 10px;
         }
-
         .bottomScreen {
             text-align: center;
             margin-top: 25px;
             margin-bottom: 25px;
         }
-
         #createAccountButton {
             width: 150px;
             height: 35px;
@@ -67,7 +61,15 @@
             <form>
                 <input type="text" id="name" placeholder="Name*" required>
                 <input type="text" id="maiden" placeholder="Maiden Name*" required>
-                <input type="text" id="address" placeholder="Address*" required>
+
+
+                <input type="text" id="Address" placeholder="Street Address*" required>
+                <input type="text" id="city" placeholder="City*" required>
+                <input type="text" id="state" placeholder="State*" required>
+                <input type="text" id="zip" placeholder="Zip Code*" required>
+
+
+
                 <input type="text" id="phone" placeholder="Phone*" required>
                 <input type="text" id="email" placeholder="Email*" required>
                 <input type="text" id="references" placeholder="References*" required>
@@ -86,7 +88,7 @@
 
 
             <div class="bottomScreen">
-                <button id="createAccountButton" type="submit" onclick="pageSeven.html">Create Account</button>
+                <button id="createAccountButton" type="submit" onclick="">Create Account</button>
             </div>
 
         </div>

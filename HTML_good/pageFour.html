@@ -29,26 +29,9 @@
             -webkit-text-stroke-width: 2px;
             -webkit-text-stroke-color: black;
         }
-
-        .button {
+        form {
             text-align: center;
         }
-
-        #pinButton {
-            width: 150px;
-            height: 35px;
-            margin-bottom: 5px;
-        }
-
-        #angelButton {
-            width: 150px;
-            height: 35px;
-        }
-
-        #chooseText {
-            padding-top: 15px;
-        }
-
         input {
             font-size: 13px;
             color: #555;
@@ -57,7 +40,15 @@
             padding: 10px 20px;
             border-radius: 20px;
             position: relative;
-            margin-top: 5px;
+            margin-top: 10px;
+        }
+        .bottomScreen {
+            text-align: center;
+            margin-top: 105px;
+        }
+        #createAccountButton {
+            width: 150px;
+            height: 35px;
         }
     </style>
 </head>
@@ -66,13 +57,22 @@
     <div class="phone">
         <div class="screen">
             <h2>Borrow My Angel</h2>
-            <div class="button" id="chooseText">Please choose one</div>
-            <div class="button">
-                <button id="pinButton" onclick="window.location.href='pageThree.html'">Person In Need</button>
+            <form>
+                <input type="text" id="username" placeholder="Username*" required>
+                <input type="password" id="password" placeholder="Password*" required>
+                <input type="text" id="email" placeholder="Email*" required>
+                <input type="text" id="firstName" placeholder="First Name">
+                <input type="number" id="age" placeholder="Age">
+                <input type="text" id="gender" placeholder="Gender">
+            </form>
+
+            <div class="bottomScreen">
+                <button id="createAccountButton" type="submit" onclick="">Create Account</button>
             </div>
-            <div class="button">
-                <button id="angelButton" onclick="window.location.href='pageTwo.html'">Angel</button>
-            </div>
+
         </div>
     </div>
+
 </body>
+
+</html>
