@@ -24,6 +24,10 @@ let ref = db.ref('restricted_access/secret_document');
 let usersRef = ref.child('users');
 let angelsRef = ref.child('angels');
 
+app.get('/', function(req, res) {
+	res.render('test-server');
+});
+
 //Create user
 //Assume request contains userName, email, password key/value pairs
 //Optionally include firstName, age, gender, and location key/value pairs
@@ -32,6 +36,7 @@ app.post('/create-user', function(req, res) {
 	let email = req.body.email;
 	//Jason said no encryption needed here since we'll assume HTTPS connection
 	let password = req.body.password;
+	let newUser = usersRef.doc(userID);
 	//Need to send back "Thanks for registering" page
 });
 
