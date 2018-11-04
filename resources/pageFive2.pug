@@ -1,0 +1,12 @@
+extends pageFiveTemplate.pug
+
+script.
+    let user =;
+
+block content
+    form(method="POST" action="http://localhost:3000/become-angel/" + user.userName)
+        input(type="text" name="firstName" id="firstname" placeholder="First Name*" required)
+        input(type="text" name="lastName" id="lastname" placeholder="Last Name*" required)
+        input(type="text" name="maidenName" id="maidenname" placeholder="Maiden Name*" required)
+        input(type="text" name="phone" id="phone" placeholder="Phone Number*" required)
+        button(id="nextButton" type="submit") Next
