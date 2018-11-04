@@ -10,7 +10,7 @@ app.set('view engine', 'pug');
 app.set('views', 'views');
 
 app.use(express.static('resources'));
-app.use('viewEngine', 'pug');
+app.use('view engine', 'pug');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
