@@ -87,6 +87,7 @@ app.post('/become-angel/:id', function(req, res) {
 					});
 				}
 			});
+		res.status(200).json({ angelName: angelName });
 	}
 	//If userName specified in path param
 	else {
@@ -100,6 +101,7 @@ app.post('/become-angel/:id', function(req, res) {
 				usersRef.doc(angelName).update({ name: req.body[name] });
 			}
 		});
+		res.status(200).json({ angelName: angelName });
 	}
 });
 
