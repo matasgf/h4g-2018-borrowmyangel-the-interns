@@ -1,0 +1,8 @@
+extends pageFiveTemplate.pug
+
+block content
+    form(method="POST" action="http://localhost:3000/become-angel")
+        input(type="text" name="angelName" id="username" placeholder="Username*" required)
+        input(type="password" name="password" id="password" placeholder="Password*" required)
+        input(type="text" name="email" id="email" placeholder="Email*" required)
+        button(id="nextButton" type="submit") Next

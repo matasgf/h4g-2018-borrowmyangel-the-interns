@@ -1,0 +1,13 @@
+extends pageFiveTemplate.pug
+
+script.
+    let user =;
+
+block content
+    form(method="POST" action="http://localhost:3000/become-angel" + user.userName)
+        input(type="text" name="criminalHistory" id="criminalhistory" placeholder="Convicted of felony? (Yes/No)*" required)
+            div
+                label(class="container") Background Check
+                    input(type="checkbox" name="bkgdPermission")
+                    span(class="checkmark")
+        button(id="nextButton" type="submit") Next
