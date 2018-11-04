@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Borrow My Angel</title>
+    <meta charset="UTF-8">
+    <style>
+        .phone {
+            height: 600px;
+            width: 300px;
+            background-color: black;
+            position: absolute;
+            transform: translateX(5%) translateY(10%);
+            border-radius: 20px;
+        }
+
+        .screen {
+            background-color: lightblue;
+            height: 500px;
+            width: 270px;
+            position: absolute;
+            transform: translateX(5%) translateY(10%);
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            font-family: fantasy;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: black;
+        }
+        form {
+            text-align: center;
+        }
+        input {
+            font-size: 13px;
+            color: #555;
+            outline: none;
+            border: 1px solid #bbb;
+            padding: 10px 20px;
+            border-radius: 20px;
+            position: relative;
+            margin-top: 10px;
+        }
+        .bottomScreen {
+            text-align: center;
+            margin-top: 105px;
+        }
+        #createAccountButton {
+            width: 150px;
+            height: 35px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone">
+        <div class="screen">
+            <h2>Borrow My Angel</h2>
+            <form>
+                <input type="text" id="username" placeholder="Username*" required>
+                <input type="password" id="password" placeholder="Password*" required>
+                <input type="text" id="email" placeholder="Email*" required>
+                <input type="text" id="firstName" placeholder="First Name">
+                <input type="number" id="age" placeholder="Age">
+                <input type="text" id="gender" placeholder="Gender">
+            </form>
+
+            <div class="bottomScreen">
+                <button id="createAccountButton" type="submit" onclick="">Create Account</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Borrow My Angel</title>
+    <meta charset="UTF-8">
+    <style>
+        .phone {
+            height: 600px;
+            width: 300px;
+            background-color: black;
+            position: absolute;
+            transform: translateX(5%) translateY(10%);
+            border-radius: 20px;
+        }
+
+        .screen {
+            background-color: lightblue;
+            height: 500px;
+            width: 270px;
+            position: absolute;
+            transform: translateX(5%) translateY(10%);
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            font-family: fantasy;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: black;
+        }
+
+        .top {
+            width: 270px;
+            height: 250px;
+        }
+
+        .bottom {
+            width: 270px;
+            height: 250px;
+        }
+
+        .homepage {
+            text-align: center;
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 75%;
+            height: 15px;
+            border-radius: 5px;   
+            background: black;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+        .slidecontainer {
+            text-align: center;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%; 
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+        img {
+            
+            background-color: red;
+        }
+        button {
+            width:125px;
+            height:112px;
+            margin: 0 0px 3px 5px;
+            background-color: lightgray;
+            border-radius: 10px;
+        }       
+        
+    </style>
+</head>
+
+<body>
+    <div class="phone">
+        <div class="screen">
+            <h2>Borrow My Angel</h2>
+
+            <div class="top">
+                <h3 class="homepage">Select Level of Risk:</h3>
+                <div class="slidecontainer">
+                    <span>1</span>
+                    <input type="range" min="0" max="10" value="5" class="slider" id="myRange" name="slide">
+                    <span>10</span>
+                </div>
+            </div>
+            <div class="bottom">
+                <h3 class="homepage">Contact an Angel</h3>
+
+                <button class="button" id="call">CALL</button>
+                <button class="button" id="msg">MSG</button>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
