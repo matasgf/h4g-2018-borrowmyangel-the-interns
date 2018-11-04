@@ -15,14 +15,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 admin.initializeApp({
-	credential: firebase.credential.cert(serviceAccount),
+	credential: admin.credential.cert(serviceAccount),
 	databaseURL: 'https://borrow-my-angel.firebaseio.com'
 });
 
 let db = admin.firestore();
-let ref = db.ref('restricted_access/secret_document');
-let usersRef = ref.child('users');
-let angelsRef = ref.child('angels');
+let usersRef = db.collection('users');
+let angelsRef = db.collections('angels');
 
 app.get('/', function(req, res) {
 	res.render('test-server');
@@ -164,7 +163,7 @@ app.post('/set-angel-status', function(req, res) {
 	let angelStatus = req.body.angelStatus;
 	angelsRef.doc(angelName).update({ status: angelStatus });
 	//redirect to angel's homepage as a pug template
-	res.redirect('/angelHome');
+	res.status(200).redirect('/angelHome');
 });
 
 //start a call
