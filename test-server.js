@@ -13,8 +13,8 @@ app.use(bodyParser.json());
 app.post('/test-post', function(req, res) {
 	let testName = req.body.testName;
 	let testEmail = req.body.testEmail;
-	let testObject = req.body.testObject;
-	let reqArray = [testName, testEmail, testObject];
+	//let testObject = req.body.testObject;
+	let reqArray = [testName, testEmail, /*testObject*/];
 	console.log('Request payload received: ', req.body);
 	reqArray.forEach(function(item) {
 		if (typeof item !== 'undefined' && item) {
