@@ -34,23 +34,75 @@ app.get('/', function(req, res) {
 app.post('/create-user', function(req, res) {
 	let userID = req.body.userName;
 	let email = req.body.email;
-	//Jason said no encryption needed here since we'll assume HTTPS connection
 	let password = req.body.password;
-	let newUser = usersRef.doc(userID);
-	//Need to send back "Thanks for registering" page
+	let optionalFields = ['firstName', 'age', 'gender', 'location'];
+	usersRef
+		.doc(userID)
+		.get()
+		.then(doc => {
+			if (doc.exists) {
+				//Send 400 if username already in use
+				res.status(400).json({ error: 'Username already in use' });
+			} else {
+				//Set email and password for userID doc in users collection in Firebase
+				usersRef.doc(userID).set({
+					email: email,
+					password: password
+				});
+				optionalFields.forEach(function(field) {
+					//I think abstract equality operator is actually useful here
+					if (req.body[field] != null) {
+						usersRef.doc(userID).update({ field: req.body[field] });
+					}
+				});
+			}
+		});
+	res.send('./pageOne.html');
 });
 
 //Become angel
+//This path will receive multiple requests per user, and response will change based on content
 //Assume request contains firstName, lastName, maidenName, address, phone, email, references, reasonsWhy, experienceCrisis, experienceVolunteer, bkgdPermission, criminalHistory
 //these keys have string values: firstName, lastName, maidenName, phone, email, reasonsWhy
 //these keys have JSON values: references, address, experienceCrisis, experienceVolunteer
 //these keys have boolean values: bkgdPermission, criminalHistory (i.e. answers the question "Have you ever been convicted of a felony? etc.")
-app.post('/become-angel', function(req, res) {
-	let userID = req.body.userName;
-	let email = req.body.email;
-	//Jason said no encryption needed here since we'll assume HTTPS connection
-	let password = req.body.password;
-	//Need to pass back auto response: "Thank you for your interest in becoming an Angel..." page
+app.post('/become-angel/:id', function(req, res) {
+	//If no path param specified
+	if (req.params.id == null) {
+		let angelName = req.body.angelName;
+		let password = req.body.password;
+		let email = req.body.email;
+		usersRef
+			.doc(angelName)
+			.get()
+			.then(doc => {
+				if (doc.exists) {
+					//Send 400 if username already in use
+					res.status(400).json({ error: 'Username already in use' });
+				} else {
+					//Set email and password for userID doc in users collection in Firebase
+					usersRef.doc(angelName).set({
+						email: email,
+						password: password
+					});
+				}
+			});
+		res.status(200).json({ angelName: angelName });
+	}
+	//If userName specified in path param
+	else {
+		let angelName = req.params.id;
+		usersRef.doc(angelName).update;
+		//Iterate over whatever fields were provided in by request
+		Object.keys(req.body).forEach(function(name) {
+			//I think abstract equality operator is actually useful here
+			if (req.body[name] != null) {
+				//Potential bug: will updating with name in name field just overwrite it for each item in object, like ("name": req.body[name]) would do?
+				usersRef.doc(angelName).update({ name: req.body[name] });
+			}
+		});
+		res.status(200).json({ angelName: angelName });
+	}
 });
 
 //User login
